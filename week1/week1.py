@@ -53,8 +53,6 @@ legend_kwds = {
     }		# specify the line colour for the country outlines
     )
 
-
-
 # plot the graticule
 graticule.plot(
     ax = my_ax,
