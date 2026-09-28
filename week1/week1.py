@@ -16,6 +16,19 @@ my_ax.axis('off')
 
 graticule = read_file("../../data/natural-earth/ne_110m_graticules_15.shp")
 bbox = read_file("../../data/natural-earth/ne_110m_wgs84_bounding_box.shp")
+
+#CRS Pejection import
+ea_proj = "+proj=wag4 +lon_0=10 +datum=WGS84 +units=m +no_defs"
+
+# reproject all three layers to equal earth
+world = world.to_crs(ea_proj)
+graticule = graticule.to_crs(ea_proj)
+bbox = bbox.to_crs(ea_proj)
+
+world['pop_density'] = world['POP_EST'] / (world.area / 1000000)
+
+print(world.pop_density)
+
 # add bounding box and graticule layers
 bbox.plot(
     ax = my_ax,
@@ -39,6 +52,8 @@ graticule.plot(
     color = 'black',
     linewidth = 0.5,
     )
+
+
 
 # save the result
 savefig('./out/1.png')
